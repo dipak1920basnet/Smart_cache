@@ -1,10 +1,10 @@
 import tabulate
-
-
+import datetime as dt
 class DocumentStore:
     def __init__(self):
         self.document = {}
         self.document_id = -1
+        self.timestamps = {}
 
     # methods
     def add_documents(self, text):
@@ -13,6 +13,7 @@ class DocumentStore:
         """
         self.document_id += 1
         self.document[self.document_id] = text
+        self.timestamps[self.document_id] = dt.datetime.now()
         return self.document_id
 
     def get_document(self, doc_id):
@@ -34,3 +35,6 @@ class DocumentStore:
             self.document.items(), headers=["document_id", "document"], tablefmt="grid"
         )
         print(datas)
+
+    def get_all_documents(self):
+        return self.document
