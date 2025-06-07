@@ -1,4 +1,6 @@
 import re
+
+
 class InvertIndex:
     def __init__(self):
         self.index = {}
@@ -8,6 +10,7 @@ class InvertIndex:
         Tokenize and index the documents
         """
 
+        # This functions can be removed later
         def remove_punctuation(doc):
             # remove punction with regex
             clean_text = re.sub(r"[^\w\s]", " ", doc)

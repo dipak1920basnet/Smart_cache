@@ -8,7 +8,6 @@ from utils import Util
 
 
 class SmartCache:
-
     def __init__(self):
         self.document = DocumentStore()
         self.index = InvertIndex()
@@ -24,19 +23,19 @@ class SmartCache:
             return None
         self.deduplicator.add(doc)
         doc_id = self.document.add_documents(doc)
-        self.index.add_document(doc_id,doc)
+        self.index.add_document(doc_id, doc)
 
-    def search_doc(self, keyword, k = 3):
+    def search_doc(self, keyword, k=3):
         # Search document with this keyword
         matching_doc_ids = self.index.lookup(keyword)
 
         if not matching_doc_ids:
             suggestions = self.suggester.suggest(
-                queries=[query for time,query in self.history.search_queue],
-                current_query=keyword
+                queries=[query for time, query in self.history.search_queue],
+                current_query=keyword,
             )
             return "No matching doc found"
-        
+
         # Get the matching documents
         matching_docs = {}
         for i in matching_doc_ids:
@@ -51,27 +50,23 @@ class SmartCache:
         top_documents = []
         for doc_id in top_k_ids:
             top_documents.append(self.document.get_document(doc_id))
-        
+
         return top_documents
 
     def view_doc(self, doc_id):
         return self.document.get_document(doc_id)
-    
+
     def list_doc(self):
         return self.document.list_documents()
-    
-    def search_by_timestamp(self, timestamp):
-        return self.util.binary_search_doc(self.document.timestamps,timestamp)
 
-    def recent_searches(self,n):
+    def search_by_timestamp(self, timestamp):
+        return self.util.binary_search_doc(self.document.timestamps, timestamp)
+
+    def recent_searches(self, n):
         return self.history.get_recent(n)
-    
+
     def undo_last_filter(self):
         return self.history.undo_filter()
-    
-    
-
-
 
 
 # # Initialize core components

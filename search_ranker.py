@@ -1,7 +1,7 @@
 import heapq
 
-class SearchRanker:
 
+class SearchRanker:
     def __init__(self):
         pass
 
@@ -11,14 +11,14 @@ class SearchRanker:
         keyword = keyword.lower().strip()
         return text.split().count(keyword)
 
-    def rank(self, documents:dict, keyword, k):
+    def rank(self, documents: dict, keyword, k):
         # use a heap to return top-k doc ID by score
         heap = []
         for doc_id, text in documents.items():
             # get score
             score = self.score(text, keyword)
             # push (-score, doc_id) to heap to get max-heap behavior
-            heap.append((-score,doc_id))
+            heap.append((-score, doc_id))
         heapq.heapify(heap)
 
         top_documents = []
@@ -28,4 +28,3 @@ class SearchRanker:
             top_documents.append(document_id)
 
         return top_documents
-        

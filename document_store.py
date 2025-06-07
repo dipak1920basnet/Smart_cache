@@ -1,5 +1,7 @@
 import tabulate
 import datetime as dt
+
+
 class DocumentStore:
     def __init__(self):
         self.document = {}
@@ -31,10 +33,4 @@ class DocumentStore:
         """
         Returns all the stored documents or its metadata
         """
-        datas = tabulate.tabulate(
-            self.document.items(), headers=["document_id", "document"], tablefmt="grid"
-        )
-        print(datas)
-
-    def get_all_documents(self):
         return self.document

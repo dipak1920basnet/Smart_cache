@@ -1,5 +1,7 @@
 from smartcache import SmartCache
 import tabulate
+
+
 def main():
     cache = SmartCache()
     print("Welcome to SmartCache 🚀")
@@ -21,9 +23,8 @@ def main():
                 continue
             else:
                 break
-        
-        match choice:
 
+        match choice:
             case 1:
                 document = input("Enter your documents: ").strip()
                 cache.add_doc(doc=document)
@@ -40,7 +41,9 @@ def main():
                 documents = cache.document.get_all_documents()
                 if documents:
                     datas = tabulate.tabulate(
-                        documents.items(), headers=["document_id", "document"], tablefmt="grid"
+                        documents.items(),
+                        headers=["document_id", "document"],
+                        tablefmt="grid",
                     )
                     print(datas)
                 else:
@@ -48,7 +51,7 @@ def main():
 
             case 4:
                 while True:
-                    print("Get recent N number of queries: ",end="")
+                    print("Get recent N number of queries: ", end="")
                     try:
                         get__recent = int(input())
                     except ValueError:
@@ -67,6 +70,7 @@ def main():
             case 5:
                 print("Exiting SmartCache. Goodbye! 👋")
                 break
+
 
 if __name__ == "__main__":
     main()
